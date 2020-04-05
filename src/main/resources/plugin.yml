@@ -1,0 +1,8 @@
+name: 'VoidPointer Framework'
+description: ${project.description}
+website: ${project.url}
+
+author: 'VoidPointer aka NyanGuyMF'
+version: ${project.version}
+
+main: voidpointer.bukkit.framework.${project.name}Plugin
