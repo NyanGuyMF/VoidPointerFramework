@@ -28,7 +28,7 @@ import java.net.URI;
  * @author VoidPointer aka NyanGuyMF
  */
 public interface Dependency {
-    URI getDownloadUrl();
+    URI getDownloadUri();
 
     String getSha1();
 

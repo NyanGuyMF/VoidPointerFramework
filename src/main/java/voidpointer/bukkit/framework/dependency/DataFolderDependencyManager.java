@@ -73,7 +73,7 @@ public final class DataFolderDependencyManager implements DependencyManager {
 
         File dependencyFile = getDependencyFile(dependency);
         if (!dependencyFile.exists()) {
-            boolean isDownloaded = download(dependency.getDownloadUrl(), dependencyFile);
+            boolean isDownloaded = download(dependency.getDownloadUri(), dependencyFile);
             if (!isDownloaded)
                 return isDownloaded;
         }
