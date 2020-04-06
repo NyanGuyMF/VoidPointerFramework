@@ -26,7 +26,7 @@ import org.bukkit.plugin.Plugin;
 
 /** @author VoidPointer aka NyanGuyMF */
 public final class PluginDependencyLoader implements DependencyLoader {
-    private static final String ADD_URL_METHOD_NAME = "addUrl";
+    private static final String ADD_URL_METHOD_NAME = "addURL";
 
     /**
      * Returns {@link DependencyLoader} instance for specified plugin or
@@ -75,9 +75,10 @@ public final class PluginDependencyLoader implements DependencyLoader {
     private Method getAddUrlMethod() {
         Method addUrlMethod = null;
         try {
-            addUrlMethod = pluginClassLoader.getClass().getDeclaredMethod(
+            addUrlMethod = URLClassLoader.class.getDeclaredMethod(
                 ADD_URL_METHOD_NAME, java.net.URL.class
             );
+            addUrlMethod.setAccessible(true);
         } catch (Exception ignore) {}
         return addUrlMethod;
     }
