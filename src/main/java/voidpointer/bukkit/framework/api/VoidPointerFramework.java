@@ -14,7 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with VoidPointerFramework. If not, see <https://www.gnu.org/licenses/>.
  */
-package voidpointer.bukkit.framework;
+package voidpointer.bukkit.framework.api;
+
+import java.io.File;
 
 import org.bukkit.plugin.Plugin;
 
@@ -22,5 +24,29 @@ import voidpointer.bukkit.framework.dependency.DependencyManager;
 
 /** @author VoidPointer aka NyanGuyMF */
 public interface VoidPointerFramework {
+    String DEFAULT_DEPENDENCY_FOLDER = "libs";
+
+    /**
+     * Creates new {@link DependencyManager} for specified plugin.
+     * <p>
+     * Uses {@link VoidPointerFramework#DEFAULT_DEPENDENCY_FOLDER} as
+     *      dependency folder name in plugin's data folder.
+     *
+     * @see Plugin#getDataFolder()
+     */
     DependencyManager getDependencyManager(Plugin plugin);
+
+    /**
+     * Creates new {@link DependencyManager} for specified plugin
+     *      in dependencyFolder in plugin's data folder.
+     *
+     * @see Plugin#getDataFolder()
+     */
+    DependencyManager getDependencyManager(Plugin plugin, String dependencyFolderName);
+
+    /**
+     * Creates new {@link DependencyManager} for specified plugin
+     *      in specified dependencyFolder.
+     */
+    DependencyManager getDependencyManager(Plugin plugin, File dependencyFolder);
 }

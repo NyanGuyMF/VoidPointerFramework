@@ -20,6 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import lombok.Getter;
 import lombok.NonNull;
+import voidpointer.bukkit.framework.api.VoidPointerFramework;
 
 /** @author VoidPointer aka NyanGuyMF */
 public class VoidPointerFrameworkPlugin extends JavaPlugin {
@@ -28,6 +29,7 @@ public class VoidPointerFrameworkPlugin extends JavaPlugin {
     private VoidPointerFramework framework;
 
     @Override public void onLoad() {
+
     }
 
     @Override public void onEnable() {
