@@ -24,7 +24,7 @@ import java.io.File;
  *
  * @author VoidPointer aka NyanGuyMF
  */
-interface DependencyLoader {
+public interface DependencyLoader {
     /** Load given dependency .jar archive to current JVM process. */
     boolean load(File dependencyFile);
 }
