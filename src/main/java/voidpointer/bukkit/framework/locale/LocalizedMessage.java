@@ -54,18 +54,18 @@ public interface LocalizedMessage {
     }
 
     /**
-     * Sets placeholder in message to specified value.
+     * Sets placeholder in message to specified replacement.
      * <p>
-     * The «placeholder» is some value surrounded by
+     * The «placeholder» is some string surrounded by
      *      {@link #PLACEHOLDER_START} and {@link #PLACEHOLDER_END}.
      * <p>
      * For example, if placeholder starts and ends by the <tt>'{'</tt>
      *      and <tt>'}'</tt> resp., you can pass <tt>"player-name"</tt>
-     *      as placeholder and <tt>"jeb_"</tt> as a value and this method
+     *      as placeholder and <tt>"jeb_"</tt> as a replacement and this method
      *      will replace all the <tt>"{player-name}"</tt> occurences
-     *      in message with specified value — <tt>"jeb_"</tt>.
+     *      in message with specified replacement — <tt>"jeb_"</tt>.
      */
-    LocalizedMessage set(@NonNull String placeholder, @NonNull String value);
+    LocalizedMessage set(@NonNull String placeholder, @NonNull String replacement);
 
     /**
      * Makes message colorful for server representation.
