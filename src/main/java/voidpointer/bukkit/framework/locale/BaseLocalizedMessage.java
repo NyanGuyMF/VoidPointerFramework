@@ -23,7 +23,6 @@ import org.bukkit.ChatColor;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 
 /** @author VoidPointer aka NyanGuyMF */
 @RequiredArgsConstructor
@@ -56,11 +55,6 @@ final class BaseLocalizedMessage implements LocalizedMessage {
     @Override public LocalizedMessage colorize(final char customColorCode) {
         value = ChatColor.translateAlternateColorCodes(customColorCode, value);
         return this;
-    }
-
-    public static void main(final String[] args) {
-        val msg = new BaseLocalizedMessage("%^a%^b%^g%^");
-        System.out.println(msg.colorize("%^").getValue());
     }
 
     @Override public LocalizedMessage colorize(final String customColorCode) {
