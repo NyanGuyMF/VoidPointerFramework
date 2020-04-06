@@ -35,8 +35,18 @@ final class BaseLocalizedMessage implements LocalizedMessage {
     @NonNull
     private String value;
 
-    @Override public LocalizedMessage set(final String placeholder, final String value) {
-        return null;
+    @Override public LocalizedMessage set(String placeholder, final String replacement) {
+        placeholder = PLACEHOLDER_START + placeholder + PLACEHOLDER_END;
+        StringBuffer buffer = new StringBuffer(value);
+
+        int occurrenceStart, occurrenceEnd;
+        /* replace all placeholder occurrences with appropriate replacement */
+        while ((occurrenceStart = buffer.indexOf(placeholder)) != -1) {
+            occurrenceEnd = occurrenceStart + placeholder.length();
+            buffer.replace(occurrenceStart, occurrenceEnd, replacement);
+        }
+        value = buffer.toString();
+        return this;
     }
 
     @Override public LocalizedMessage colorize() {
@@ -58,14 +68,14 @@ final class BaseLocalizedMessage implements LocalizedMessage {
 
         final String bukkitColorChar = String.valueOf(ChatColor.COLOR_CHAR);
         int occurenceStartIndex = 0;
-        int occurenceEndIndex = 0;
+        int occurrenceEndIndex = 0;
         int expectedColorIndex;
         // iterate through every customColorCode occurence.
-        while ((occurenceStartIndex = message.indexOf(customColorCode, occurenceEndIndex)) != NOT_FOUND) {
+        while ((occurenceStartIndex = message.indexOf(customColorCode, occurrenceEndIndex)) != NOT_FOUND) {
             /* expected color is the char after occurence. */
             expectedColorIndex = occurenceStartIndex + customColorCode.length();
             /* occurence ends before expected color. */
-            occurenceEndIndex = expectedColorIndex;
+            occurrenceEndIndex = expectedColorIndex;
 
             if (expectedColorIndex >= message.length())
                 break; /* reached the end of message. */
@@ -75,7 +85,7 @@ final class BaseLocalizedMessage implements LocalizedMessage {
                 continue; /* the char after color code isn't color. */
 
             message.setCharAt(expectedColorIndex, toLowerCase(expectedColor));
-            message.replace(occurenceStartIndex, occurenceEndIndex, bukkitColorChar);
+            message.replace(occurenceStartIndex, occurrenceEndIndex, bukkitColorChar);
         }
         value = message.toString();
         return this;
