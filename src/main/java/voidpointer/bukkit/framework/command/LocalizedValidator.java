@@ -32,6 +32,6 @@ public abstract class LocalizedValidator<T extends CommandArgs> extends BaseVali
 
     @Override protected void onNotValid(final T args) {
         /* method may be overrided by sub classes. */
-        locale.getLocalized(errorMessage).send(args.getSender());
+        locale.getLocalized(errorMessage).colorize().send(args.getSender());
     }
 }
