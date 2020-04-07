@@ -18,5 +18,5 @@ package voidpointer.bukkit.framework.command;
 
 /** @author VoidPointer aka NyanGuyMF */
 public interface CommandArgsValidator<T extends CommandArgs> {
-    boolean areValid(T args);
+    boolean areValid(Command<T> cmd, T args);
 }

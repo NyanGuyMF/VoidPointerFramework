@@ -16,16 +16,24 @@
  */
 package voidpointer.bukkit.framework.command;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import voidpointer.bukkit.framework.locale.Message;
+
 /** @author VoidPointer aka NyanGuyMF */
-public abstract class BaseValidator<T extends CommandArgs> implements CommandArgsValidator<T> {
-    @Override public final boolean areValid(final Command<T> cmd, final T args) {
-        final boolean areValid = areValid0(cmd, args);
-        if (!areValid)
-            onNotValid(cmd, args);
-        return areValid;
+@Getter
+@RequiredArgsConstructor
+public enum CommandErrorMessage implements Message {
+    NO_PERMISSION("You have not enough permission for this command.")
+    ;
+
+    public static final String PATH_PREFIX = "error";
+
+    @NonNull private final String defaultValue;
+
+    @Override public String getPath() {
+        return String.format("%s.%s", PATH_PREFIX, toString().replace('_', '-').toLowerCase());
     }
 
-    protected abstract boolean areValid0(final Command<T> cmd, final T args);
-
-    protected abstract void onNotValid(final Command<T> cmd, final T args);
 }
