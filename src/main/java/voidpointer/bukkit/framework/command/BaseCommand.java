@@ -65,10 +65,6 @@ public abstract class BaseCommand<T extends CommandArgs> implements Command<T> {
         validators.add(validator);
     }
 
-    @Override public void removeValidator(final CommandArgsValidator<T> validator) {
-        validators.remove(validator);
-    }
-
     @Override public List<String> complete(final T args) {
         return null;
     }
