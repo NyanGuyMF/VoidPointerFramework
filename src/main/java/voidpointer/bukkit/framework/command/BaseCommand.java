@@ -61,7 +61,7 @@ public abstract class BaseCommand<T extends CommandArgs> implements Command<T> {
         return complete(newCommandArgs(sender, alias, args));
     }
 
-    @Override public void addValidator(final CommandArgsValidator<T> validator) {
+    @Override public final void addValidator(final CommandArgsValidator<T> validator) {
         validators.add(validator);
     }
 
@@ -69,7 +69,7 @@ public abstract class BaseCommand<T extends CommandArgs> implements Command<T> {
         return null;
     }
 
-    @Override public void register(final JavaPlugin plugin) {
+    @Override public final void register(final JavaPlugin plugin) {
         PluginCommand pluginCommand = plugin.getCommand(getName());
         if (pluginCommand != null)
             pluginCommand.setExecutor(this);
