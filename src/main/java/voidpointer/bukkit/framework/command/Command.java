@@ -22,16 +22,54 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 
-/** @author VoidPointer aka NyanGuyMF */
+/**
+ * Simplified bukkit command representation using {@link CommandArgs}
+ *      interface instead of raw {@link CommandExecutor} arguments in
+ *      order to make the command execution lifecycle more flexible and
+ *      readable.
+ * <p>
+ * The framework allows you to use command both as single Bukkit command
+ *      just like /tp {Player} or /sethome and as a sub command manager
+ *      /clan kick {Player}, /clan invite {Player}.
+ * <p>
+ * The {@link BaseCommand} class allows you to implement single Bukkit command.
+ * <p>
+ * The {@link SubCommandManager} class allows you to implement single command
+ *      with sub commands.
+ *
+ * @author VoidPointer aka NyanGuyMF
+ */
 public interface Command<T extends CommandArgs> extends CommandExecutor, TabCompleter {
+    /**
+     * Get the command name.
+     * <p>
+     * The name for single Bukkit command is <i>/</i><b>clan</b>
+     *      <i>arg1 .. argn</i>.
+     * <p>
+     * The name for sub command in manager is i.e. <i>/clan</i>
+     *      <b>kick</b> <i>arg1 .. argn</i>.
+     */
     String getName();
 
+    /**
+     * Add a validator for command.
+     * <p>
+     * The validators are used to validate command arguments during execution.
+     *      When you add a validator, it means that now the command is validated
+     *      by the validator and it will filter command calls by {@link CommandExecutor}.
+     * <p>
+     * I.e. if you want only players to be able to execute your command,
+     *      then you could implement this using {@link CommandArgsValidator}
+     *      interface or use some ready to use class.
+     *
+     * @see CommandArgsValidator
+     */
     void addValidator(CommandArgsValidator<T> validator);
 
-    void removeValidator(CommandArgsValidator<T> validator);
-
+    /** @see CommandExecutor */
     boolean execute(T args);
 
+    /** @see TabCompleter */
     List<String> complete(T args);
 
     void register(JavaPlugin plugin);
