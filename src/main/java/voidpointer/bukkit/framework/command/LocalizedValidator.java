@@ -16,16 +16,22 @@
  */
 package voidpointer.bukkit.framework.command;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import voidpointer.bukkit.framework.locale.Locale;
+import voidpointer.bukkit.framework.locale.Message;
+
 /** @author VoidPointer aka NyanGuyMF */
-public abstract class BaseValidator<T extends CommandArgs> implements CommandArgsValidator<T> {
-    @Override public final boolean areValid(final T args) {
-        final boolean areValid = areValid0(args);
-        if (!areValid)
-            onNotValid(args);
-        return areValid;
+@RequiredArgsConstructor
+@Getter(AccessLevel.PROTECTED)
+public abstract class LocalizedValidator<T extends CommandArgs> extends BaseValidator<T> {
+    @NonNull private final Locale locale;
+    @NonNull private final Message errorMessage;
+
+    @Override protected void onNotValid(final T args) {
+        /* method may be overrided by sub classes. */
+        locale.getLocalized(errorMessage).send(args.getSender());
     }
-
-    protected abstract boolean areValid0(T args);
-
-    protected abstract void onNotValid(final T args);
 }
