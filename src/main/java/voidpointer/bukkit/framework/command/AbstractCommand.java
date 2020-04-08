@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 /** @author VoidPointer aka NyanGuyMF */
 @RequiredArgsConstructor
-public abstract class BaseCommand<T extends CommandArgs> implements Command<T> {
+public abstract class AbstractCommand<T extends CommandArgs> implements Command<T> {
     @Getter
     @NonNull
     private final String name;
@@ -63,10 +63,6 @@ public abstract class BaseCommand<T extends CommandArgs> implements Command<T> {
 
     @Override public final void addValidator(final CommandArgsValidator<T> validator) {
         validators.add(validator);
-    }
-
-    @Override public List<String> complete(final T args) {
-        return null;
     }
 
     @Override public final void register(final JavaPlugin plugin) {

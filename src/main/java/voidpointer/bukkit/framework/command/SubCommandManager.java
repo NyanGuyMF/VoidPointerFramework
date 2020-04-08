@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** @author VoidPointer aka NyanGuyMF */
-public abstract class SubCommandManager<T extends CommandArgs> extends BaseCommand<T> {
+public abstract class SubCommandManager<T extends CommandArgs> extends AbstractCommand<T> {
     private static final int FIRST_ARG = 0;
     private final List<Command<T>> subCommands = new ArrayList<>();
 

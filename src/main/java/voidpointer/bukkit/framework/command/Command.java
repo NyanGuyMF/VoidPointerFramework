@@ -32,7 +32,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  *      just like /tp {Player} or /sethome and as a sub command manager
  *      /clan kick {Player}, /clan invite {Player}.
  * <p>
- * The {@link BaseCommand} class allows you to implement single Bukkit command.
+ * The {@link AbstractCommand} class allows you to implement single Bukkit command.
  * <p>
  * The {@link SubCommandManager} class allows you to implement single command
  *      with sub commands.
