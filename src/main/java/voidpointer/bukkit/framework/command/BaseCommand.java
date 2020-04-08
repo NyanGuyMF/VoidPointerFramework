@@ -44,7 +44,7 @@ public abstract class BaseCommand<T extends CommandArgs> implements Command<T> {
     ) {
         T args = newCommandArgs(sender, label, rawArgs);
         for (CommandArgsValidator<T> commandArgsValidator : validators) {
-            if (!commandArgsValidator.areValid(args))
+            if (!commandArgsValidator.areValid(this, args))
                 return true; /** invalid args are handled by validators */
         }
         return execute(args);

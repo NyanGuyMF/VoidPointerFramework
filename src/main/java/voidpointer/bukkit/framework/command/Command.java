@@ -52,6 +52,15 @@ public interface Command<T extends CommandArgs> extends CommandExecutor, TabComp
     String getName();
 
     /**
+     * Get the name, which will be displayed for player.
+     * <p>
+     * I.e. if command is sub command of /clan, the sub command
+     *      name is <b>kick</b>, then display name should be
+     *      <b>clan kick</b>.
+     */
+    String getDisplayName();
+
+    /**
      * Add a validator for command.
      * <p>
      * The validators are used to validate command arguments during execution.
