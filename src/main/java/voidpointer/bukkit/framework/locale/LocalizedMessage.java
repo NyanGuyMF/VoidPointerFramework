@@ -18,8 +18,11 @@ package voidpointer.bukkit.framework.locale;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import lombok.NonNull;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 
 /**
  * This interface is localized {@link Message} version.
@@ -50,6 +53,19 @@ public interface LocalizedMessage {
     /** Sends message to specified receiver. */
     default LocalizedMessage send(@NonNull final CommandSender receiver) {
         receiver.sendMessage(getValue());
+        return this;
+    }
+
+    /**
+     * Sends message as a action bar message to specifed player.
+     * <p>
+     * Warning: this method uses Spigot API.
+     */
+    default LocalizedMessage sendAction(@NonNull final Player player) {
+        player.spigot().sendMessage(
+            ChatMessageType.ACTION_BAR,
+            TextComponent.fromLegacyText(getValue())
+        );
         return this;
     }
 
