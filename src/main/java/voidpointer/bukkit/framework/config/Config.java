@@ -32,10 +32,6 @@ import java.util.concurrent.CompletableFuture;
  * @author VoidPointer aka NyanGuyMF
  */
 public interface Config extends Closeable {
-    /**
-     * @throws NoSuchFileException if configuration file doesn't
-     *      exists.
-     */
     CompletableFuture<Boolean> load();
 
     /**
@@ -43,19 +39,17 @@ public interface Config extends Closeable {
      * <p>
      * The file which is used for l10n is defined by implementation,
      *      but should contain locale String in it's name.
-     *
-     * @throws NoSuchFileException if l10n file doesn't exists.
      */
     CompletableFuture<Boolean> loadLocalized(String locale);
 
+    /**
+     * Save configuration to localized file (if it's possible) or
+     *      or default.
+     */
     CompletableFuture<Boolean> save();
 
-    /**
-     * Reload configuraiton using current file
-     *
-     * @throws IllegalStateException if file doesn't exists.
-     */
-    CompletableFuture<Boolean> reload();
+    /** Reload configuraiton using current file. */
+    CompletableFuture<Boolean> reload() throws NoSuchFileException;
 
     /** Free all used resources if any. */
     CompletableFuture<Boolean> unload();
