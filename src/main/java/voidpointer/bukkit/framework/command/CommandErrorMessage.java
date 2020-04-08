@@ -25,15 +25,16 @@ import voidpointer.bukkit.framework.locale.Message;
 @Getter
 @RequiredArgsConstructor
 public enum CommandErrorMessage implements Message {
-    NO_PERMISSION("You have not enough permission for this command.")
+    NO_PERMISSION("&cYou have not enough permission for &6{command-name}&c command.&r"),
+    PLAYER_COMMAND("&cOnly player can execute &6{command-name}&c command.&r"),
     ;
 
-    public static final String PATH_PREFIX = "error";
+    public static final String ERROR_PATH_PREFIX = "error";
 
     @NonNull private final String defaultValue;
 
     @Override public String getPath() {
-        return String.format("%s.%s", PATH_PREFIX, toString().replace('_', '-').toLowerCase());
+        return String.format("%s.%s", ERROR_PATH_PREFIX, toString().replace('_', '-').toLowerCase());
     }
 
 }
