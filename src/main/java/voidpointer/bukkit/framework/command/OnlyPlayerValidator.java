@@ -16,27 +16,20 @@
  */
 package voidpointer.bukkit.framework.command;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import voidpointer.bukkit.framework.locale.Locale;
 import voidpointer.bukkit.framework.locale.Message;
 
 /** @author VoidPointer aka NyanGuyMF */
-@Getter
-@RequiredArgsConstructor
-public enum CommandErrorMessage implements Message {
-    NO_PERMISSION("&cYou have not enough permission for &6{command-name}&c command.&r"),
-    PLAYER_COMMAND("&cOnly player can execute &6{command-name}&c command.&r"),
-    NOT_ENOUGH_ARGS("&cNot enough arguments for &6{command-name}&c command.&r"),
-    ONLY_PLAYER_ALLOWED("&cOnly player allowed to execute &6{command-name}&c command.&r"),
-    ;
-
-    public static final String ERROR_PATH_PREFIX = "error";
-
-    @NonNull private final String defaultValue;
-
-    @Override public String getPath() {
-        return String.format("%s.%s", ERROR_PATH_PREFIX, toString().replace('_', '-').toLowerCase());
+public class OnlyPlayerValidator extends LocalizedValidator<CommandArgs> {
+    public OnlyPlayerValidator(final Locale locale) {
+        this(locale, CommandErrorMessage.ONLY_PLAYER_ALLOWED);
     }
 
+    public OnlyPlayerValidator(final Locale locale, final Message errorMessage) {
+        super(locale, errorMessage);
+    }
+
+    @Override protected boolean areValid0(final Command<CommandArgs> cmd, final CommandArgs args) {
+        return args.isPlayer();
+    }
 }
