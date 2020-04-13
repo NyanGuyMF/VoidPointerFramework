@@ -46,4 +46,8 @@ public class SimpleCommandArgs implements CommandArgs {
     @Override public int length() {
         return args.size();
     }
+
+    @Override public String get(final int index) throws IndexOutOfBoundsException {
+        return args.get(index);
+    }
 }
