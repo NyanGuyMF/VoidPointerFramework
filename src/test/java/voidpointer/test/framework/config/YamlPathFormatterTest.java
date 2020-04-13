@@ -14,28 +14,31 @@
  * You should have received a copy of the GNU General Public License
  * along with VoidPointerFramework. If not, see <https://www.gnu.org/licenses/>.
  */
-package voidpointer.bukkit.framework.command;
+package voidpointer.test.framework.config;
 
-import lombok.Getter;
+import static org.junit.Assert.assertEquals;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Test;
+
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import voidpointer.bukkit.framework.locale.Message;
+import voidpointer.bukkit.framework.config.YamlPathFormatter;
 
 /** @author VoidPointer aka NyanGuyMF */
-@Getter
-@RequiredArgsConstructor
-public enum CommandErrorMessage implements Message {
-    NO_PERMISSION("&cYou have not enough permission for &6{command-name}&c command.&r"),
-    PLAYER_COMMAND("&cOnly player can execute &6{command-name}&c command.&r"),
-    NOT_ENOUGH_ARGS("&cNot enough arguments for &6{command-name}&c command.&r"),
-    ;
+public class YamlPathFormatterTest {
+    @NonNull private static final Map<String, String> validPaths = new HashMap<String, String>() {
+        private static final long serialVersionUID = -4378946843617215753L;
+    {
+        put("  /c  add player ", ".c.add.player");
+        put("help me pls", "help.me.pls");
+        put(" help me pls", "help.me.pls");
+        put(".help me pls", ".help.me.pls");
+    }};
 
-    public static final String ERROR_PATH_PREFIX = "error";
-
-    @NonNull private final String defaultValue;
-
-    @Override public String getPath() {
-        return String.format("%s.%s", ERROR_PATH_PREFIX, toString().replace('_', '-').toLowerCase());
+    @Test public void test() {
+        for (String traget : validPaths.keySet())
+            assertEquals(YamlPathFormatter.toPath(traget), validPaths.get(traget));
     }
-
 }
