@@ -154,29 +154,6 @@
                       </execution>
                 </executions>
             </plugin>
-            <!-- maven-javadoc-plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!-- Prevent builds from failing because of uncompleted Javadoc -->
-                    <additionalparam>-Xdoclint:none</additionalparam>
-                    <links>
-                        <link>https://hub.spigotmc.org/javadocs/spigot/</link>
-                    </links>
-                    <!-- Use delomboked sources to include generated methods as well -->
-                    <sourcepath>${basedir}/target/generated-sources/delombok</sourcepath>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>
