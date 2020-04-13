@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 /** @author VoidPointer aka NyanGuyMF */
 @Data
 @RequiredArgsConstructor
-class SimpleCommandArgs implements CommandArgs {
+public class SimpleCommandArgs implements CommandArgs {
     @NonNull private final CommandSender sender;
     @NonNull private final String label;
     @NonNull private final List<String> args;
@@ -41,5 +41,9 @@ class SimpleCommandArgs implements CommandArgs {
         if (isPlayer())
             return (Player) sender;
         return null;
+    }
+
+    @Override public int length() {
+        return args.size();
     }
 }

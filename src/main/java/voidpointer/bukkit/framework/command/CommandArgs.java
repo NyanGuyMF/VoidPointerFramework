@@ -49,4 +49,7 @@ public interface CommandArgs {
     String getLabel();
 
     List<String> getArgs();
+
+    /** Get arguments list length. */
+    int length();
 }
