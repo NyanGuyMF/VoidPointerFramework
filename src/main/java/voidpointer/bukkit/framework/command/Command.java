@@ -61,6 +61,18 @@ public interface Command<T extends CommandArgs> extends CommandExecutor, TabComp
     String getDisplayName();
 
     /**
+     * Get the permission required for this command.
+     * <p>
+     * If there is no permission required for this command,
+     *      method returns the empty string or null.
+     *
+     * @return The permission required for this command or
+     *      <tt>null</tt> and empty string if there is no
+     *      permission required for command.
+     */
+    String getPermission();
+
+    /**
      * Add a validator for command.
      * <p>
      * The validators are used to validate command arguments during execution.

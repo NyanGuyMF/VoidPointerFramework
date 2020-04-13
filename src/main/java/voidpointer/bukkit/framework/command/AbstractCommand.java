@@ -23,9 +23,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /** @author VoidPointer aka NyanGuyMF */
 @RequiredArgsConstructor
@@ -33,6 +35,10 @@ public abstract class AbstractCommand<T extends CommandArgs> implements Command<
     @Getter
     @NonNull
     private final String name;
+
+    @Getter
+    @Setter(AccessLevel.PROTECTED)
+    private String permission = null;
 
     private List<CommandArgsValidator<T>> validators = new ArrayList<>();
 
