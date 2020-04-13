@@ -47,6 +47,14 @@ public abstract class AbstractCommand<T extends CommandArgs> implements Command<
             if (!commandArgsValidator.areValid(this, args))
                 return true; /** invalid args are handled by validators */
         }
+        /*
+         * If command execution fails, then we should send usage/help
+         *      message to CommandSender.
+         * TODO:
+         *  - create another class, which represents the command,
+         *      which allows this mechanic with abstract method
+         *      onWrongUsage().
+         */
         return execute(args);
     }
 
