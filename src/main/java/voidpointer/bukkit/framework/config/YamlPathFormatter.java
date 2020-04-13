@@ -33,9 +33,9 @@ public final class YamlPathFormatter {
      * <p>
      * Examples:
      * <pre>
-     * " /c  add "      ->  ".c.add"
-     * " /c rank add  " ->  ".c.rank.add"
-     * "help me pls"    ->  "help.me.pls"
+     * " /c  add "      into  ".c.add"
+     * " /c rank add  " into  ".c.rank.add"
+     * "help me pls"    into  "help.me.pls"
      * </pre>
      */
     public static String toPath(final String target) {
