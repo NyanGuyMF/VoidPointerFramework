@@ -59,6 +59,11 @@ public abstract class PluginConfig extends AbstractPluginConfig {
         });
     }
 
+    /** Override this method if you want to listen this action. */
+    protected void onLoad() {
+        // empty implementation
+    }
+
     @Override public CompletableFuture<Boolean> loadLocalized(final String locale) {
         return CompletableFuture.supplyAsync(() -> {
             setCurrentLocale(locale);
@@ -67,10 +72,20 @@ public abstract class PluginConfig extends AbstractPluginConfig {
         });
     }
 
+    /** Override this method if you want to listen this action. */
+    protected void onLoadLocalized() {
+        // empty implementation
+    }
+
     @Override public CompletableFuture<Boolean> save() {
         return CompletableFuture.supplyAsync(() -> {
             return super.saveYamlConfiguration();
         });
+    }
+
+    /** Override this method if you want to listen this action. */
+    protected void onSave() {
+        // empty implementation
     }
 
     @Override public CompletableFuture<Boolean> reload() {
@@ -79,11 +94,21 @@ public abstract class PluginConfig extends AbstractPluginConfig {
         });
     }
 
+    /** Override this method if you want to listen this action. */
+    protected void onReload() {
+        // empty implementation
+    }
+
     @Override public CompletableFuture<Boolean> unload() {
         return CompletableFuture.supplyAsync(() -> {
             setConfig(null);
             return true;
         });
+    }
+
+    /** Override this method if you want to listen this action. */
+    protected void onUnload() {
+        // empty implementation
     }
 
     @Override public boolean isLoaded() {
