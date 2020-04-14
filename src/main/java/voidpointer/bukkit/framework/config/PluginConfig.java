@@ -61,7 +61,7 @@ public abstract class PluginConfig extends AbstractPluginConfig {
 
     @Override public CompletableFuture<Boolean> loadLocalized(final String locale) {
         return CompletableFuture.supplyAsync(() -> {
-            setLocale(locale);
+            setCurrentLocale(locale);
             final String filename = formatLocalizedFilename(locale);
             return load(filename);
         });

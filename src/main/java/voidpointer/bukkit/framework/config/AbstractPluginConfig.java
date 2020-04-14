@@ -39,7 +39,7 @@ abstract class AbstractPluginConfig implements Config {
     @NonNull private final Plugin pluginOwner;
     @NonNull private File configFolder;
     @NonNull private String configFilename;
-    private String locale;
+    private String currentLocale;
     private YamlConfiguration config;
 
     protected final boolean load(final String configFilename) {
@@ -59,7 +59,7 @@ abstract class AbstractPluginConfig implements Config {
 
     protected final String formatLocalizedFilename(final String configFilename) {
         FilenamePattern pattern = FilenamePattern.match(configFilename);
-        int localizedFilenameLength = configFilename.length() + locale.length()
+        int localizedFilenameLength = configFilename.length() + currentLocale.length()
                                         + LOCALE_SEPARATOR.length();
         StringBuffer localizedFilename = new StringBuffer(localizedFilenameLength);
         localizedFilename.append(pattern.getFullFilePath())
@@ -70,7 +70,7 @@ abstract class AbstractPluginConfig implements Config {
     }
 
     protected final boolean isLocalized() {
-        return getLocale() != null;
+        return getCurrentLocale() != null;
     }
 
     protected final boolean saveYamlConfiguration() {
