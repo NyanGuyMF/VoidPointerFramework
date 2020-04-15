@@ -55,7 +55,10 @@ public abstract class PluginConfig extends AbstractPluginConfig {
 
     @Override public CompletableFuture<Boolean> load() {
         return CompletableFuture.supplyAsync(() -> {
-            return load(super.getConfigFilename());
+            boolean isLoaded = load(super.getConfigFilename());
+            if (isLoaded)
+                onLoad();
+            return isLoaded;
         });
     }
 
@@ -68,7 +71,10 @@ public abstract class PluginConfig extends AbstractPluginConfig {
         return CompletableFuture.supplyAsync(() -> {
             setCurrentLocale(locale);
             final String filename = formatLocalizedFilename(locale);
-            return load(filename);
+            boolean isLoaded = load(filename);
+            if (isLoaded)
+                onLoadLocalized();
+            return isLoaded;
         });
     }
 
@@ -79,7 +85,10 @@ public abstract class PluginConfig extends AbstractPluginConfig {
 
     @Override public CompletableFuture<Boolean> save() {
         return CompletableFuture.supplyAsync(() -> {
-            return super.saveYamlConfiguration();
+            boolean isSaved = super.saveYamlConfiguration();
+            if (isSaved)
+                onSave();
+            return isSaved;
         });
     }
 
@@ -90,7 +99,10 @@ public abstract class PluginConfig extends AbstractPluginConfig {
 
     @Override public CompletableFuture<Boolean> reload() {
         return CompletableFuture.supplyAsync(() -> {
-            return super.reloadYamlConfiguration();
+            boolean isReloaded = super.reloadYamlConfiguration();
+            if (isReloaded)
+                onReload();
+            return isReloaded;
         });
     }
 
@@ -102,6 +114,7 @@ public abstract class PluginConfig extends AbstractPluginConfig {
     @Override public CompletableFuture<Boolean> unload() {
         return CompletableFuture.supplyAsync(() -> {
             setConfig(null);
+            onUnload();
             return true;
         });
     }
