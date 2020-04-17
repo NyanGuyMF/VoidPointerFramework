@@ -34,7 +34,7 @@ final class MysqlConnection implements DatabaseConnection {
     @NonNull
     private String connectionUrl;
 
-    public DatabaseConnection forCredentials(final MysqlCredentials credentials) {
+    public static DatabaseConnection forCredentials(final MysqlCredentials credentials) {
         return new MysqlConnectionBuilder()
                 .connectionUrl(formatUrl(credentials))
                 .build();
