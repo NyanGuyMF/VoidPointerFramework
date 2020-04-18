@@ -16,38 +16,21 @@
  */
 package voidpointer.bukkit.framework.command;
 
-import java.util.List;
+import java.util.Arrays;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 /** @author VoidPointer aka NyanGuyMF */
-@Data
-@RequiredArgsConstructor
-public class SimpleCommandArgs implements CommandArgs {
-    @NonNull private final CommandSender sender;
-    @NonNull private final String label;
-    @NonNull private final List<String> args;
-
-    @Override public boolean isPlayer() {
-        return sender instanceof Player;
+public abstract class SimpleCommand extends AbstractCommand<CommandArgs> {
+    public SimpleCommand(final String name) {
+        super(name);
     }
 
-    @Override public Player getPlayer() {
-        if (isPlayer())
-            return (Player) sender;
-        return null;
+    @Override public String getDisplayName() {
+        return getName();
     }
 
-    @Override public int length() {
-        return args.size();
-    }
-
-    @Override public String get(final int index) throws IndexOutOfBoundsException {
-        return args.get(index);
+    @Override protected CommandArgs newCommandArgs(final CommandSender sender, final String label, final String[] args) {
+        return new SimpleCommandArgs(sender, label, Arrays.asList(args));
     }
 }

@@ -27,6 +27,8 @@ import voidpointer.bukkit.framework.locale.Message;
 public enum CommandErrorMessage implements Message {
     NO_PERMISSION("&cYou have not enough permission for &6{command-name}&c command.&r"),
     PLAYER_COMMAND("&cOnly player can execute &6{command-name}&c command.&r"),
+    NOT_ENOUGH_ARGS("&cNot enough arguments for &6{command-name}&c command.&r"),
+    ONLY_PLAYER_ALLOWED("&cOnly player allowed to execute &6{command-name}&c command.&r"),
     ;
 
     public static final String ERROR_PATH_PREFIX = "error";

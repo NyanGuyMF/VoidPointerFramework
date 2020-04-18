@@ -55,35 +55,73 @@ public abstract class PluginConfig extends AbstractPluginConfig {
 
     @Override public CompletableFuture<Boolean> load() {
         return CompletableFuture.supplyAsync(() -> {
-            return load(super.getConfigFilename());
+            boolean isLoaded = load(super.getConfigFilename());
+            if (isLoaded)
+                onLoad();
+            return isLoaded;
         });
+    }
+
+    /** Override this method if you want to listen this action. */
+    protected void onLoad() {
+        // empty implementation
     }
 
     @Override public CompletableFuture<Boolean> loadLocalized(final String locale) {
         return CompletableFuture.supplyAsync(() -> {
-            setLocale(locale);
+            setCurrentLocale(locale);
             final String filename = formatLocalizedFilename(locale);
-            return load(filename);
+            boolean isLoaded = load(filename);
+            if (isLoaded)
+                onLoadLocalized();
+            return isLoaded;
         });
+    }
+
+    /** Override this method if you want to listen this action. */
+    protected void onLoadLocalized() {
+        // empty implementation
     }
 
     @Override public CompletableFuture<Boolean> save() {
         return CompletableFuture.supplyAsync(() -> {
-            return super.saveYamlConfiguration();
+            boolean isSaved = super.saveYamlConfiguration();
+            if (isSaved)
+                onSave();
+            return isSaved;
         });
+    }
+
+    /** Override this method if you want to listen this action. */
+    protected void onSave() {
+        // empty implementation
     }
 
     @Override public CompletableFuture<Boolean> reload() {
         return CompletableFuture.supplyAsync(() -> {
-            return super.reloadYamlConfiguration();
+            boolean isReloaded = super.reloadYamlConfiguration();
+            if (isReloaded)
+                onReload();
+            return isReloaded;
         });
+    }
+
+    /** Override this method if you want to listen this action. */
+    protected void onReload() {
+        // empty implementation
     }
 
     @Override public CompletableFuture<Boolean> unload() {
         return CompletableFuture.supplyAsync(() -> {
             setConfig(null);
+            onUnload();
             return true;
         });
+    }
+
+    /** Override this method if you want to listen this action. */
+    protected void onUnload() {
+        // empty implementation
     }
 
     @Override public boolean isLoaded() {

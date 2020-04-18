@@ -32,7 +32,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  *      just like /tp {Player} or /sethome and as a sub command manager
  *      /clan kick {Player}, /clan invite {Player}.
  * <p>
- * The {@link BaseCommand} class allows you to implement single Bukkit command.
+ * The {@link AbstractCommand} class allows you to implement single Bukkit command.
  * <p>
  * The {@link SubCommandManager} class allows you to implement single command
  *      with sub commands.
@@ -59,6 +59,18 @@ public interface Command<T extends CommandArgs> extends CommandExecutor, TabComp
      *      <b>clan kick</b>.
      */
     String getDisplayName();
+
+    /**
+     * Get the permission required for this command.
+     * <p>
+     * If there is no permission required for this command,
+     *      method returns the empty string or null.
+     *
+     * @return The permission required for this command or
+     *      <tt>null</tt> and empty string if there is no
+     *      permission required for command.
+     */
+    String getPermission();
 
     /**
      * Add a validator for command.

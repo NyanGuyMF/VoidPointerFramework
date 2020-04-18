@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** @author VoidPointer aka NyanGuyMF */
-public abstract class SubCommandManager<T extends CommandArgs> extends BaseCommand<T> {
+public abstract class SubCommandManager<T extends CommandArgs> extends AbstractCommand<T> {
     private static final int FIRST_ARG = 0;
     private final List<Command<T>> subCommands = new ArrayList<>();
 
@@ -29,6 +29,11 @@ public abstract class SubCommandManager<T extends CommandArgs> extends BaseComma
     }
 
     @Override public boolean execute(final T args) {
+        if (args.getArgs().size() < 1) {
+            onSubCommandNotSpecified(args);
+            return true;
+        }
+
         final String specifiedSubCommandName = args.getArgs().get(FIRST_ARG);
         Command<T> specifiedSubCommand = null;
         for (final Command<T> subCommand : subCommands) {
@@ -43,7 +48,16 @@ public abstract class SubCommandManager<T extends CommandArgs> extends BaseComma
             return true;
         }
 
+        /* no longer needed, executing sub command */
+        args.getArgs().remove(FIRST_ARG);
+
         return specifiedSubCommand.execute(args);
+    }
+
+    // should I refactor this method as executeSelf(args)?
+    /** Called when the sub command is not specified. */
+    protected void onSubCommandNotSpecified(final T args) {
+        /* sub classes should override this method. */
     }
 
     /** Called when specified sub command not found. */

@@ -28,13 +28,19 @@ public final class FilenamePattern {
             "^((.*)[\\/\\\\])?(.+?)(\\..*)?$"
             , Pattern.MULTILINE
     );
-    /** Full file path (including last {@link File#separatorChar}). */
+    /**
+     * Full file path (including last {@link File#separatorChar}), i.e.
+     *      «/path/to/file/».
+     */
     private static final int FULL_FILE_PATH_INDEX = 1;
-    /** Extension without last {@link File#separatorChar}. */
+    /**
+     * File path without last {@link File#separatorChar}, i.e.
+     *      «/path/to/file».
+     */
     private static final int FILE_PATH_INDEX = 2;
-    /** Filename without extension. */
+    /** Filename without path and extension, i.e. «message_en». */
     private static final int FILE_NAME_INDEX = 3;
-    /** File extension with dot. */
+    /** File extension with dot, i.e. «.tar.bz2». */
     private static final int FILE_EXTENSION_INDEX = 4;
 
     @NonNull private final Matcher matcher;
@@ -49,27 +55,27 @@ public final class FilenamePattern {
             throw new IllegalArgumentException("Unable to match target string");
     }
 
-    /*
-     * Bad documentation:
-     *      programmer shouldn't know about any inthernals.
+    /**
+     * Get file path without last {@link File#separatorChar}, i.e.
+     *      «/path/to/file».
      */
-
-    /** @see #FULL_FILE_PATH_INDEX */
     public String getFullFilePath() {
         return matcher.group(FULL_FILE_PATH_INDEX);
     }
 
-    /** @see #FILE_PATH_INDEX */
+    /** Get file path without last {@link File#separatorChar}, i.e.
+     *      «/path/to/file».
+     */
     public String getFilePath() {
         return matcher.group(FILE_PATH_INDEX);
     }
 
-    /** @see #FILE_NAME_INDEX */
+    /** Get filename without path and extension, i.e. «message_en». */
     public String getFilename() {
         return matcher.group(FILE_NAME_INDEX);
     }
 
-    /** @see #FILE_EXTENSION_INDEX */
+    /** Get file extension with dot, i.e. «.tar.bz2». */
     public String getFileExtension() {
         return matcher.group(FILE_EXTENSION_INDEX);
     }

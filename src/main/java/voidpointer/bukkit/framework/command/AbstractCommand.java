@@ -23,16 +23,22 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /** @author VoidPointer aka NyanGuyMF */
 @RequiredArgsConstructor
-public abstract class BaseCommand<T extends CommandArgs> implements Command<T> {
+public abstract class AbstractCommand<T extends CommandArgs> implements Command<T> {
     @Getter
     @NonNull
     private final String name;
+
+    @Getter
+    @Setter(AccessLevel.PROTECTED)
+    private String permission = null;
 
     private List<CommandArgsValidator<T>> validators = new ArrayList<>();
 
@@ -47,6 +53,14 @@ public abstract class BaseCommand<T extends CommandArgs> implements Command<T> {
             if (!commandArgsValidator.areValid(this, args))
                 return true; /** invalid args are handled by validators */
         }
+        /*
+         * If command execution fails, then we should send usage/help
+         *      message to CommandSender.
+         * TODO:
+         *  - create another class, which represents the command,
+         *      which allows this mechanic with abstract method
+         *      onWrongUsage().
+         */
         return execute(args);
     }
 
@@ -63,10 +77,6 @@ public abstract class BaseCommand<T extends CommandArgs> implements Command<T> {
 
     @Override public final void addValidator(final CommandArgsValidator<T> validator) {
         validators.add(validator);
-    }
-
-    @Override public List<String> complete(final T args) {
-        return null;
     }
 
     @Override public final void register(final JavaPlugin plugin) {

@@ -16,38 +16,20 @@
  */
 package voidpointer.bukkit.framework.command;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import lombok.Data;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import voidpointer.bukkit.framework.locale.Locale;
+import voidpointer.bukkit.framework.locale.Message;
 
 /** @author VoidPointer aka NyanGuyMF */
-@Data
-@RequiredArgsConstructor
-public class SimpleCommandArgs implements CommandArgs {
-    @NonNull private final CommandSender sender;
-    @NonNull private final String label;
-    @NonNull private final List<String> args;
-
-    @Override public boolean isPlayer() {
-        return sender instanceof Player;
+public class OnlyPlayerValidator extends LocalizedValidator<CommandArgs> {
+    public OnlyPlayerValidator(final Locale locale) {
+        this(locale, CommandErrorMessage.ONLY_PLAYER_ALLOWED);
     }
 
-    @Override public Player getPlayer() {
-        if (isPlayer())
-            return (Player) sender;
-        return null;
+    public OnlyPlayerValidator(final Locale locale, final Message errorMessage) {
+        super(locale, errorMessage);
     }
 
-    @Override public int length() {
-        return args.size();
-    }
-
-    @Override public String get(final int index) throws IndexOutOfBoundsException {
-        return args.get(index);
+    @Override protected boolean areValid0(final Command<CommandArgs> cmd, final CommandArgs args) {
+        return args.isPlayer();
     }
 }

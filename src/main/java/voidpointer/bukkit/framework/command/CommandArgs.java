@@ -49,4 +49,14 @@ public interface CommandArgs {
     String getLabel();
 
     List<String> getArgs();
+
+    /**
+     * Get argument from arguments list on specified index.
+     *
+     * @throws IndexOutOfBoundsException {@link List#get(int)}
+     */
+    String get(int index) throws IndexOutOfBoundsException;
+
+    /** Get arguments list length. */
+    int length();
 }
