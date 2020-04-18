@@ -49,6 +49,6 @@ enum StandardDriver implements DatabaseDriver {
     }
 
     @Override public String toString() {
-        return toString().toLowerCase();
+        return super.toString().toLowerCase();
     }
 }
