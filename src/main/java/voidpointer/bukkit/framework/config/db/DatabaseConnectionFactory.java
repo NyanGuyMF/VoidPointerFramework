@@ -19,10 +19,17 @@ package voidpointer.bukkit.framework.config.db;
 import java.util.Arrays;
 
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.plugin.Plugin;
+
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 /** @author VoidPointer aka NyanGuyMF */
-class DatabaseConnectionFactory {
-    public DatabaseConnection getConnection(
+@RequiredArgsConstructor
+class DatabaseConnectionFactory implements ConnectionFactory {
+    @NonNull private final Plugin plugin;
+
+    @Override public DatabaseConnection getConnection(
             final String driverName,
             final ConfigurationSection connectionConfig
     ) {
@@ -36,13 +43,16 @@ class DatabaseConnectionFactory {
 
     private DatabaseConnection getStandardConnection(
             final StandardDriver driver,
-            final ConfigurationSection connectionConfiguration
+            final ConfigurationSection connectionConfig
     ) {
         switch (driver) {
         case H2:
-            break;
+            return new H2Connection(plugin.getDataFolder(), connectionConfig);
         case MYSQL:
-            break;
+            MysqlCredentials credentials = YamlMysqlCredentials.fromYaml(connectionConfig);
+            if (credentials == null)
+                return null;
+            return MysqlConnection.forCredentials(credentials);
 
         default:
             /**
@@ -51,7 +61,6 @@ class DatabaseConnectionFactory {
              */
             throw new IllegalStateException("dafaq?");
         }
-        return null;
     }
 
     private DatabaseConnection getCustomConnection(

@@ -57,7 +57,7 @@ public final class PluginDatabaseConfig extends PluginConfig implements Database
             driverName = DEFAULT_DRIVER;
             connectionConfig = loadDefaultConnectionConfig(databaseConfig);
         }
-        DatabaseConnectionFactory connectionFactory = new DatabaseConnectionFactory();
+        ConnectionFactory connectionFactory = new DatabaseConnectionFactory(getPluginOwner());
         connection = connectionFactory.getConnection(driverName, connectionConfig);
     }
 
