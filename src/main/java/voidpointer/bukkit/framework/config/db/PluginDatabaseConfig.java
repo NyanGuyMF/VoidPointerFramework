@@ -87,12 +87,12 @@ public final class PluginDatabaseConfig extends PluginConfig implements Database
     @Override public Dependency getConnectorDependency() {
         if (!isLoaded())
             throw new IllegalStateException("Configuration isn't loaded.");
-        return null;
+        return connection.getDriver();
     }
 
     @Override public String getConnectionUrl() {
         if (!isLoaded())
             throw new IllegalStateException("Configuration isn't loaded.");
-        return null;
+        return connection.getConnectionUrl();
     }
 }
