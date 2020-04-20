@@ -109,4 +109,13 @@ public interface LocalizedMessage {
      * @see #colorize()
      */
     LocalizedMessage colorize(@NonNull String customColorCode);
+
+    /**
+     * Converts message to multiline.
+     * <p>
+     * Usually string contains "\\n" char sequences, which are not
+     *      automatically converted into newline character by
+     *      Bukkit, so this method does it.
+     */
+    LocalizedMessage multiline();
 }
