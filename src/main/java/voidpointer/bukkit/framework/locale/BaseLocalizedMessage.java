@@ -84,4 +84,19 @@ final class BaseLocalizedMessage implements LocalizedMessage {
         value = message.toString();
         return this;
     }
+
+    @Override public LocalizedMessage multiline() {
+        final StringBuffer message = new StringBuffer(value);
+        final String target = "\\n";
+        final String replacement = System.lineSeparator();
+
+        int occurenceStartIndex = 0;
+        int occurrenceEndIndex = 0;
+        while ((occurenceStartIndex = message.indexOf(target, occurrenceEndIndex)) != NOT_FOUND) {
+            occurrenceEndIndex = occurenceStartIndex + target.length();
+            message.replace(occurenceStartIndex, occurrenceEndIndex, replacement);
+        }
+        value = message.toString();
+        return this;
+    }
 }
