@@ -22,11 +22,18 @@ import voidpointer.bukkit.framework.locale.Message;
 /** @author VoidPointer aka NyanGuyMF */
 public class PermissionValidator extends LocalizedValidator<CommandArgs> {
     public PermissionValidator(final Locale locale) {
-        this(locale, null);
+        this(locale, CommandErrorMessage.NO_PERMISSION);
     }
 
     public PermissionValidator(final Locale locale, final Message errorMessage) {
         super(locale, errorMessage);
+    }
+
+    @Override protected void onNotValid(final Command<CommandArgs> cmd, final CommandArgs args) {
+        super.getLocale().getLocalized(super.getErrorMessage())
+                .colorize()
+                .set("command-name", cmd.getDisplayName())
+                .send(args.getSender());
     }
 
     @Override protected boolean areValid0(final Command<CommandArgs> cmd, final CommandArgs args) {
