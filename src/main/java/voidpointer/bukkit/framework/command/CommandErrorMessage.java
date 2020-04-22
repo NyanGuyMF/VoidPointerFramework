@@ -25,18 +25,20 @@ import voidpointer.bukkit.framework.locale.Message;
 @Getter
 @RequiredArgsConstructor
 public enum CommandErrorMessage implements Message {
+    REGISTER_UNKNOWN_COMMAND("&cTrying to register &6{command-name} &ccommand, which isn't in plugin.yml.&r"),
     NO_PERMISSION("&cYou have not enough permission for &6{command-name}&c command.&r"),
     PLAYER_COMMAND("&cOnly player can execute &6{command-name}&c command.&r"),
     NOT_ENOUGH_ARGS("&cNot enough arguments for &6{command-name}&c command.&r"),
     ONLY_PLAYER_ALLOWED("&cOnly player allowed to execute &6{command-name}&c command.&r"),
+    UNKNOWN_SUB_COMMAND("&cUnknown sub command &6&o«{sub-alias}» for &6/{command-name}&c.&r"),
+    SUB_COMMAND_NOT_SPECIFIED("&cYou should specify sub command for &6/{command-name}&c.&r"),
     ;
 
     public static final String ERROR_PATH_PREFIX = "error";
 
     @NonNull private final String defaultValue;
 
-    @Override public String getPath() {
+    @Override public final String getPath() {
         return String.format("%s.%s", ERROR_PATH_PREFIX, toString().replace('_', '-').toLowerCase());
     }
-
 }
