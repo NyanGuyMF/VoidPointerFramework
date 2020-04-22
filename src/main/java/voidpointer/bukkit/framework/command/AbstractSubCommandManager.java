@@ -19,12 +19,16 @@ package voidpointer.bukkit.framework.command;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+
 /** @author VoidPointer aka NyanGuyMF */
-public abstract class SubCommandManager<T extends CommandArgs> extends AbstractCommand<T> {
+public abstract class AbstractSubCommandManager<T extends CommandArgs> extends AbstractCommand<T> {
     private static final int FIRST_ARG = 0;
+    @Getter(AccessLevel.PROTECTED)
     private final List<Command<T>> subCommands = new ArrayList<>();
 
-    public SubCommandManager(final String name) {
+    public AbstractSubCommandManager(final String name) {
         super(name);
     }
 
@@ -34,17 +38,17 @@ public abstract class SubCommandManager<T extends CommandArgs> extends AbstractC
             return true;
         }
 
-        final String specifiedSubCommandName = args.getArgs().get(FIRST_ARG);
+        final String subAlias = args.getArgs().get(FIRST_ARG);
         Command<T> specifiedSubCommand = null;
         for (final Command<T> subCommand : subCommands) {
-            if (!subCommand.getName().equalsIgnoreCase(specifiedSubCommandName))
+            if (!subCommand.getName().equalsIgnoreCase(subAlias))
                 continue;
             specifiedSubCommand = subCommand;
             break;
         }
 
         if (specifiedSubCommand == null) {
-            onSubCommandNotFound(args);
+            onSubCommandNotFound(subAlias, args);
             return true;
         }
 
@@ -54,6 +58,10 @@ public abstract class SubCommandManager<T extends CommandArgs> extends AbstractC
         return specifiedSubCommand.execute(args);
     }
 
+    protected void addSubCommand(final Command<T> subCommand) {
+        subCommands.add(subCommand);
+    }
+
     // should I refactor this method as executeSelf(args)?
     /** Called when the sub command is not specified. */
     protected void onSubCommandNotSpecified(final T args) {
@@ -61,7 +69,7 @@ public abstract class SubCommandManager<T extends CommandArgs> extends AbstractC
     }
 
     /** Called when specified sub command not found. */
-    protected void onSubCommandNotFound(final T args) {
+    protected void onSubCommandNotFound(final String subAlias, final T args) {
         /* sub classes should override this method. */
     }
 }

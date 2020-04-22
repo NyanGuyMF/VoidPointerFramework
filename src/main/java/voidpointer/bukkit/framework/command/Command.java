@@ -34,7 +34,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * <p>
  * The {@link AbstractCommand} class allows you to implement single Bukkit command.
  * <p>
- * The {@link SubCommandManager} class allows you to implement single command
+ * The {@link AbstractSubCommandManager} class allows you to implement single command
  *      with sub commands.
  *
  * @author VoidPointer aka NyanGuyMF
