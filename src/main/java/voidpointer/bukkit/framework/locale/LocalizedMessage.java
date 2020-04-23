@@ -84,6 +84,15 @@ public interface LocalizedMessage {
     LocalizedMessage set(@NonNull String placeholder, @NonNull String replacement);
 
     /**
+     * The same as {@link LocalizedMessage#set(String, String)}, but instead of
+     *      {@link String} as a replacement this method uses {@link LocalizedMessage}
+     *      instance with it's value.
+     *
+     * @see #set(String, String)
+     */
+    LocalizedMessage set(@NonNull String placeholder, @NonNull LocalizedMessage replacement);
+
+    /**
      * Makes message colorful for server representation.
      * <p>
      * Bukkit uses {@link ChatColor#COLOR_CHAR} for color represenation,

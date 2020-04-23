@@ -48,6 +48,10 @@ final class BaseLocalizedMessage implements LocalizedMessage {
         return this;
     }
 
+    @Override public LocalizedMessage set(final String placeholder, final LocalizedMessage replacement) {
+        return set(placeholder, replacement.getValue());
+    }
+
     @Override public LocalizedMessage colorize() {
         return colorize(LocalizedMessage.CUSTOM_COLOR_CODE);
     }
@@ -99,4 +103,5 @@ final class BaseLocalizedMessage implements LocalizedMessage {
         value = message.toString();
         return this;
     }
+
 }
