@@ -20,10 +20,13 @@ import java.io.File;
 
 import org.bukkit.plugin.Plugin;
 
+import lombok.NonNull;
 import voidpointer.bukkit.framework.dependency.DataFolderDependencyManager;
 import voidpointer.bukkit.framework.dependency.DependencyLoader;
 import voidpointer.bukkit.framework.dependency.DependencyManager;
 import voidpointer.bukkit.framework.dependency.PluginDependencyLoader;
+import voidpointer.bukkit.framework.event.EventManager;
+import voidpointer.bukkit.framework.event.PluginEventManager;
 
 /** @author VoidPointer aka NyanGuyMF */
 public final class BaseVoidPointerFarmework implements VoidPointerFramework {
@@ -48,5 +51,9 @@ public final class BaseVoidPointerFarmework implements VoidPointerFramework {
             dependencyFolder.mkdirs();
 
         return new DataFolderDependencyManager(dependencyLoader, dependencyFolder);
+    }
+
+    @Override public EventManager getEventManager(@NonNull final Plugin plugin) {
+        return new PluginEventManager(plugin);
     }
 }
