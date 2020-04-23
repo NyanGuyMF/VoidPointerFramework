@@ -21,6 +21,7 @@ import java.io.File;
 import org.bukkit.plugin.Plugin;
 
 import voidpointer.bukkit.framework.dependency.DependencyManager;
+import voidpointer.bukkit.framework.event.EventManager;
 
 /** @author VoidPointer aka NyanGuyMF */
 public interface VoidPointerFramework {
@@ -49,4 +50,10 @@ public interface VoidPointerFramework {
      *      in specified dependencyFolder.
      */
     DependencyManager getDependencyManager(Plugin plugin, File dependencyFolder);
+
+    /**
+     * Create a new {@link EventManager} instance which will manage
+     *      events for specified plugin.
+     */
+    EventManager getEventManager(Plugin plugin);
 }
