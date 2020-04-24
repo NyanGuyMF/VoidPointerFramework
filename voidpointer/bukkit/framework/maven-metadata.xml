@@ -4,13 +4,8 @@
   <artifactId>framework</artifactId>
   <versioning>
     <versions>
-      <version>0.6.0-SNAPSHOT</version>
-      <version>0.7.0-SNAPSHOT</version>
-      <version>0.7.2-SNAPSHOT</version>
-      <version>0.7.3-SNAPSHOT</version>
-      <version>0.7.4-SNAPSHOT</version>
-      <version>0.7.5-SNAPSHOT</version>
+      <version>0.7.6-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20200423024656</lastUpdated>
+    <lastUpdated>20200424085707</lastUpdated>
   </versioning>
 </metadata>
