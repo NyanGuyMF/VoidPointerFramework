@@ -74,6 +74,11 @@
             <artifactId>maven-source-plugin</artifactId>
             <version>3.2.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.j256.ormlite</groupId>
+            <artifactId>ormlite-jdbc</artifactId>
+            <version>5.1</version>
+        </dependency>
     </dependencies>
 
     <build>
