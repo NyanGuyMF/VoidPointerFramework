@@ -37,7 +37,7 @@ public abstract class OrmLiteDatabaseManager implements DatabaseManager {
     @NonNull private final DatabaseConfig config;
     @NonNull private final DependencyManager dependencyManager;
 
-    private ConnectionSource connectionSource;
+    private /* hack class loader exception */ Object connectionSource;
 
     @Override public CompletableFuture<Boolean> connect() {
         return CompletableFuture.supplyAsync(() -> connect0());
@@ -49,12 +49,15 @@ public abstract class OrmLiteDatabaseManager implements DatabaseManager {
         if (!installConnector())
             return false;
         boolean isConnected = false;
+        ConnectionSource connectionSource = null;
         try {
             connectionSource = new JdbcConnectionSource(config.getConnectionUrl());
             onConnectionEstablished(connectionSource);
             isConnected = true;
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally {
+            this.connectionSource = connectionSource;
         }
         return isConnected;
     }
@@ -85,6 +88,8 @@ public abstract class OrmLiteDatabaseManager implements DatabaseManager {
     }
 
     @Override public void close() {
-        connectionSource.closeQuietly();
+        if (!(connectionSource instanceof ConnectionSource))
+            return;
+        ((ConnectionSource) connectionSource).closeQuietly();
     }
 }
