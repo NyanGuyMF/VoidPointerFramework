@@ -26,7 +26,7 @@ import voidpointer.bukkit.framework.dependency.Dependency;
 /** @author VoidPointer aka NyanGuyMF */
 @Getter
 @RequiredArgsConstructor
-enum OrmLiteDependency implements Dependency {
+public enum OrmLiteDependency implements Dependency {
     CORE(
         URI.create("https://repo1.maven.org/maven2/com/j256/ormlite/ormlite-core/5.1/ormlite-core-5.1.jar"),
         "bf7a747016c99ac01577d3268a4ac9c24e94d5de",

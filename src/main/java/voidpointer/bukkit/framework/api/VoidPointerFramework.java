@@ -56,4 +56,6 @@ public interface VoidPointerFramework {
      *      events for specified plugin.
      */
     EventManager getEventManager(Plugin plugin);
+
+    boolean requireOrmLite(Plugin plugin);
 }
