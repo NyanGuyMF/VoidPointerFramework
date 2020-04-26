@@ -29,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 final class BaseLocalizedMessage implements LocalizedMessage {
     private static final int NOT_FOUND = -1;
     private static final String COLORS = "0123456789AaBbCcDdEeFfKkLlMmNnOoRr";
+    private static final String ESCAPED_NEWLINE = "\\n";
 
     @Getter
     @NonNull
@@ -91,7 +92,7 @@ final class BaseLocalizedMessage implements LocalizedMessage {
 
     @Override public LocalizedMessage multiline() {
         final StringBuffer message = new StringBuffer(value);
-        final String target = "\\n";
+        final String target = ESCAPED_NEWLINE;
         final String replacement = System.lineSeparator();
 
         int occurenceStartIndex = 0;
