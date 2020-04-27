@@ -89,7 +89,7 @@ abstract class AbstractPluginConfig implements Config {
 
     private File getLocalizedOrDefaultConfig() {
         final String filename;
-        if (isLoaded())
+        if (isLocalized())
             filename = formatLocalizedFilename(getConfigFilename());
         else
             filename = getConfigFilename();
