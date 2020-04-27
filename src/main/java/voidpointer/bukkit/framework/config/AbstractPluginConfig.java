@@ -51,7 +51,8 @@ abstract class AbstractPluginConfig implements Config {
 
     protected final void saveDefaultIfNotExists(final File file) {
         try {
-            pluginOwner.saveResource(configFilename, REAPLCE);
+            if (!file.exists())
+                pluginOwner.saveResource(configFilename, REAPLCE);
         } catch (IllegalArgumentException ignore) {
             /** should be pointing to nonexisting resource. */
         }
