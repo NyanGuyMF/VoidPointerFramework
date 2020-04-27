@@ -41,12 +41,6 @@ public class SimpleSubCommandManager extends AbstractSubCommandManager<CommandAr
         return super.getName();
     }
 
-    @Override public List<String> complete(final CommandArgs args) {
-        if (args.length() == 0)
-            return completeZeroArgs(args);
-        return completeSubCommand(args.get(SUB_COMMAND_NAME_INDEX), args);
-    }
-
     @Override protected void onCommandNotFound(final JavaPlugin plugin) {
         plugin.getLogger().severe(
             locale.getLocalized(CommandErrorMessage.REGISTER_UNKNOWN_COMMAND)
@@ -71,17 +65,38 @@ public class SimpleSubCommandManager extends AbstractSubCommandManager<CommandAr
                 .send(args.getSender());
     }
 
+    @Override public List<String> complete(final CommandArgs args) {
+        if (args.length() == 0)
+            return completeZeroArgs(args);
+        else if (args.length() == 1)
+            completeSubCommandName(args.get(SUB_COMMAND_NAME_INDEX), args);
+        else
+            return completeSubCommand(args.get(SUB_COMMAND_NAME_INDEX), args);
+    }
+
     protected List<String> completeZeroArgs(final CommandArgs args) {
         return super.getSubCommands().parallelStream()
                 .map(Command::getName)
                 .collect(Collectors.toList());
     }
 
-    protected List<String> completeSubCommand(final String alias, final CommandArgs args) {
+    protected List<String> completeSubCommandName(final String alias, final CommandArgs args) {
         return super.getSubCommands().parallelStream()
                 .map(Command::getName)
                 .filter(commandName -> commandName.startsWith(alias))
                 .collect(Collectors.toList());
+    }
+
+    protected List<String> completeSubCommand(final String subCommandAlias, final CommandArgs args) {
+        Command<CommandArgs> specifiedSubCommand = null;
+        for (Command<CommandArgs> subCommand : super.getSubCommands()) {
+            if (subCommand.getName().equals(subCommandAlias))
+                specifiedSubCommand = subCommand;
+        }
+        if (specifiedSubCommand == null)
+            return Arrays.asList(""); /* nothing to complete */
+        args.getArgs().remove(SUB_COMMAND_NAME_INDEX);
+        return specifiedSubCommand.complete(args);
     }
 
     @Override protected CommandArgs newCommandArgs(final CommandSender sender, final String label, final String[] args) {
