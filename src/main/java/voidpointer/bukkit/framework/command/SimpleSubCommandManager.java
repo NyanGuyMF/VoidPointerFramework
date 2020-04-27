@@ -69,7 +69,7 @@ public class SimpleSubCommandManager extends AbstractSubCommandManager<CommandAr
         if (args.length() == 0)
             return completeZeroArgs(args);
         else if (args.length() == 1)
-            completeSubCommandName(args.get(SUB_COMMAND_NAME_INDEX), args);
+            return completeSubCommandName(args.get(SUB_COMMAND_NAME_INDEX), args);
         else
             return completeSubCommand(args.get(SUB_COMMAND_NAME_INDEX), args);
     }
