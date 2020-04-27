@@ -16,6 +16,7 @@
  */
 package voidpointer.bukkit.framework.command;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -84,6 +85,6 @@ public class SimpleSubCommandManager extends AbstractSubCommandManager<CommandAr
     }
 
     @Override protected CommandArgs newCommandArgs(final CommandSender sender, final String label, final String[] args) {
-        return new SimpleCommandArgs(sender, label, Arrays.asList(args));
+        return new SimpleCommandArgs(sender, label, new ArrayList<>(Arrays.asList(args)));
     }
 }
