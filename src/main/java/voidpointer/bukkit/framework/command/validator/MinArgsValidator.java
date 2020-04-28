@@ -14,8 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with VoidPointerFramework. If not, see <https://www.gnu.org/licenses/>.
  */
-package voidpointer.bukkit.framework.command;
+package voidpointer.bukkit.framework.command.validator;
 
+import voidpointer.bukkit.framework.command.Command;
+import voidpointer.bukkit.framework.command.CommandArgs;
+import voidpointer.bukkit.framework.command.CommandErrorMessage;
 import voidpointer.bukkit.framework.locale.Locale;
 import voidpointer.bukkit.framework.locale.Message;
 

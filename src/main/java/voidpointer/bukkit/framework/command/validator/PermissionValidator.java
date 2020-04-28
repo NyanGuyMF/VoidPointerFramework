@@ -14,22 +14,35 @@
  * You should have received a copy of the GNU General Public License
  * along with VoidPointerFramework. If not, see <https://www.gnu.org/licenses/>.
  */
-package voidpointer.bukkit.framework.command;
+package voidpointer.bukkit.framework.command.validator;
 
+import voidpointer.bukkit.framework.command.Command;
+import voidpointer.bukkit.framework.command.CommandArgs;
+import voidpointer.bukkit.framework.command.CommandErrorMessage;
 import voidpointer.bukkit.framework.locale.Locale;
 import voidpointer.bukkit.framework.locale.Message;
 
 /** @author VoidPointer aka NyanGuyMF */
-public class OnlyPlayerValidator extends LocalizedValidator<CommandArgs> {
-    public OnlyPlayerValidator(final Locale locale) {
-        this(locale, CommandErrorMessage.ONLY_PLAYER_ALLOWED);
+public class PermissionValidator extends LocalizedValidator<CommandArgs> {
+    public PermissionValidator(final Locale locale) {
+        this(locale, CommandErrorMessage.NO_PERMISSION);
     }
 
-    public OnlyPlayerValidator(final Locale locale, final Message errorMessage) {
+    public PermissionValidator(final Locale locale, final Message errorMessage) {
         super(locale, errorMessage);
     }
 
+    @Override protected void onNotValid(final Command<CommandArgs> cmd, final CommandArgs args) {
+        super.getLocale().getLocalized(super.getErrorMessage())
+                .colorize()
+                .set("command-name", cmd.getDisplayName())
+                .send(args.getSender());
+    }
+
     @Override protected boolean areValid0(final Command<CommandArgs> cmd, final CommandArgs args) {
-        return args.isPlayer();
+        final String permission = cmd.getPermission();
+        if ((permission == null) || permission.isEmpty())
+            return true;
+        return args.getSender().hasPermission(permission);
     }
 }
