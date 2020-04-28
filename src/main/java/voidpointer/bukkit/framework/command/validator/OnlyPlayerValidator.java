@@ -18,14 +18,14 @@ package voidpointer.bukkit.framework.command.validator;
 
 import voidpointer.bukkit.framework.command.Command;
 import voidpointer.bukkit.framework.command.CommandArgs;
-import voidpointer.bukkit.framework.command.CommandErrorMessage;
+import voidpointer.bukkit.framework.command.CommandMessage;
 import voidpointer.bukkit.framework.locale.Locale;
 import voidpointer.bukkit.framework.locale.Message;
 
 /** @author VoidPointer aka NyanGuyMF */
 public class OnlyPlayerValidator extends LocalizedValidator<CommandArgs> {
     public OnlyPlayerValidator(final Locale locale) {
-        this(locale, CommandErrorMessage.ONLY_PLAYER_ALLOWED);
+        this(locale, CommandMessage.ONLY_PLAYER_ALLOWED);
     }
 
     public OnlyPlayerValidator(final Locale locale, final Message errorMessage) {

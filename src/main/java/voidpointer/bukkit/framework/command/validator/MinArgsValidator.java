@@ -18,7 +18,7 @@ package voidpointer.bukkit.framework.command.validator;
 
 import voidpointer.bukkit.framework.command.Command;
 import voidpointer.bukkit.framework.command.CommandArgs;
-import voidpointer.bukkit.framework.command.CommandErrorMessage;
+import voidpointer.bukkit.framework.command.CommandMessage;
 import voidpointer.bukkit.framework.locale.Locale;
 import voidpointer.bukkit.framework.locale.Message;
 
@@ -28,13 +28,13 @@ public class MinArgsValidator extends LocalizedValidator<CommandArgs> {
 
     /**
      * Creates {@link MinArgsValidator} instance with
-     *      {@link CommandErrorMessage#NOT_ENOUGH_ARGS} error message.
+     *      {@link CommandMessage#NOT_ENOUGH_ARGS} error message.
      *
      * @throws IllegalArgumentException if minArgs is negative integer.
      * @see MinArgsValidator#MinArgsValidator(Locale, Message, int)
      */
     public MinArgsValidator(final Locale locale, final int minArgs) {
-        this(locale, CommandErrorMessage.NOT_ENOUGH_ARGS, minArgs);
+        this(locale, CommandMessage.NOT_ENOUGH_ARGS, minArgs);
     }
 
     /**

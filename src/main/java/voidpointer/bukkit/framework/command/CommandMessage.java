@@ -24,7 +24,7 @@ import voidpointer.bukkit.framework.locale.Message;
 /** @author VoidPointer aka NyanGuyMF */
 @Getter
 @RequiredArgsConstructor
-public enum CommandErrorMessage implements Message {
+public enum CommandMessage implements Message {
     REGISTER_UNKNOWN_COMMAND("&cTrying to register &6{command-name} &ccommand, which isn't in plugin.yml.&r"),
     NO_PERMISSION("&cYou have not enough permission for &6{command-name}&c command.&r"),
     PLAYER_COMMAND("&cOnly player can execute &6{command-name}&c command.&r"),
@@ -34,7 +34,7 @@ public enum CommandErrorMessage implements Message {
     SUB_COMMAND_NOT_SPECIFIED("&cYou should specify sub command for &6/{command-name}&c.&r"),
     ;
 
-    public static final String ERROR_PATH_PREFIX = "error";
+    public static final String ERROR_PATH_PREFIX = "command";
 
     @NonNull private final String defaultValue;
 

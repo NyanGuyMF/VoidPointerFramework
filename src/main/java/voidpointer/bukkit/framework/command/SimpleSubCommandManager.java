@@ -43,7 +43,7 @@ public class SimpleSubCommandManager extends AbstractSubCommandManager<CommandAr
 
     @Override protected void onCommandNotFound(final JavaPlugin plugin) {
         plugin.getLogger().severe(
-            locale.getLocalized(CommandErrorMessage.REGISTER_UNKNOWN_COMMAND)
+            locale.getLocalized(CommandMessage.REGISTER_UNKNOWN_COMMAND)
                     .colorize()
                     .set("command-name", getDisplayName())
                     .getValue()
@@ -51,7 +51,7 @@ public class SimpleSubCommandManager extends AbstractSubCommandManager<CommandAr
     }
 
     @Override protected void onSubCommandNotFound(final String subAlias, final CommandArgs args) {
-        locale.getLocalized(CommandErrorMessage.UNKNOWN_SUB_COMMAND)
+        locale.getLocalized(CommandMessage.UNKNOWN_SUB_COMMAND)
                 .colorize()
                 .set("command-name", getDisplayName())
                 .set("sub-alias", subAlias)
@@ -59,7 +59,7 @@ public class SimpleSubCommandManager extends AbstractSubCommandManager<CommandAr
     }
 
     @Override protected void onSubCommandNotSpecified(final CommandArgs args) {
-        locale.getLocalized(CommandErrorMessage.SUB_COMMAND_NOT_SPECIFIED)
+        locale.getLocalized(CommandMessage.SUB_COMMAND_NOT_SPECIFIED)
                 .colorize()
                 .set("command-name", getDisplayName())
                 .send(args.getSender());
