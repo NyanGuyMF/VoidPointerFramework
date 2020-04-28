@@ -29,7 +29,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * This class is base and final implementation of {@link DependencyManager}
@@ -40,7 +39,6 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author VoidPointer aka NyanGuyMF
  */
-@Slf4j
 @RequiredArgsConstructor
 public final class DataFolderDependencyManager implements DependencyManager {
     private static final String DEPENDENCY_EXTENSION = ".jar";
@@ -96,14 +94,14 @@ public final class DataFolderDependencyManager implements DependencyManager {
         try {
              sourceIn = source.toURL().openConnection().getInputStream();
         } catch (IOException ex) {
-            log.debug("Unable to open connection with dependency download url", ex);
+            System.out.printf("Unable to open connection with download URI: %s\n", source.toString());
             return false;
         }
 
         try {
             Files.copy(sourceIn, destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {
-            log.debug("Unable to download depenceny", ex);
+            System.out.printf("Unable to download depenceny: %s\n", ex.getLocalizedMessage());
             if (destination.exists())
                 destination.delete();
             return false;
