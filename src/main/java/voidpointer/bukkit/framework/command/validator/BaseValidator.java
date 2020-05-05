@@ -14,7 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with VoidPointerFramework. If not, see <https://www.gnu.org/licenses/>.
  */
-package voidpointer.bukkit.framework.command;
+package voidpointer.bukkit.framework.command.validator;
+
+import voidpointer.bukkit.framework.command.Command;
+import voidpointer.bukkit.framework.command.CommandArgs;
+import voidpointer.bukkit.framework.command.CommandArgsValidator;
 
 /** @author VoidPointer aka NyanGuyMF */
 public abstract class BaseValidator<T extends CommandArgs> implements CommandArgsValidator<T> {

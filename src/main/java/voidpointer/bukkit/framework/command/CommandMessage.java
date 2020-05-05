@@ -16,25 +16,29 @@
  */
 package voidpointer.bukkit.framework.command;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import voidpointer.bukkit.framework.locale.Locale;
 import voidpointer.bukkit.framework.locale.Message;
 
 /** @author VoidPointer aka NyanGuyMF */
+@Getter
 @RequiredArgsConstructor
-@Getter(AccessLevel.PROTECTED)
-public abstract class LocalizedValidator<T extends CommandArgs> extends BaseValidator<T> {
-    @NonNull private final Locale locale;
-    @NonNull private final Message errorMessage;
+public enum CommandMessage implements Message {
+    REGISTER_UNKNOWN_COMMAND("&cTrying to register &6{command-name} &ccommand, which isn't in plugin.yml.&r"),
+    NO_PERMISSION("&cYou have not enough permission for &6{command-name}&c command.&r"),
+    PLAYER_COMMAND("&cOnly player can execute &6{command-name}&c command.&r"),
+    NOT_ENOUGH_ARGS("&cNot enough arguments for &6{command-name}&c command.&r"),
+    ONLY_PLAYER_ALLOWED("&cOnly player allowed to execute &6{command-name}&c command.&r"),
+    UNKNOWN_SUB_COMMAND("&cUnknown sub command &6&o«{sub-alias}» for &6/{command-name}&c.&r"),
+    SUB_COMMAND_NOT_SPECIFIED("&cYou should specify sub command for &6/{command-name}&c.&r"),
+    ;
 
-    @Override protected void onNotValid(final Command<T> cmd, final T args) {
-        /* method may be overrided by sub classes. */
-        locale.getLocalized(errorMessage)
-            .set("command-name", cmd.getDisplayName())
-            .colorize()
-            .send(args.getSender());
+    public static final String ERROR_PATH_PREFIX = "command";
+
+    @NonNull private final String defaultValue;
+
+    @Override public final String getPath() {
+        return String.format("%s.%s", ERROR_PATH_PREFIX, toString().replace('_', '-').toLowerCase());
     }
 }

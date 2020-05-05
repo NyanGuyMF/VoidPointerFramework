@@ -14,22 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with VoidPointerFramework. If not, see <https://www.gnu.org/licenses/>.
  */
-package voidpointer.bukkit.framework.command;
+package voidpointer.bukkit.framework.command.validator;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import voidpointer.bukkit.framework.command.Command;
+import voidpointer.bukkit.framework.command.CommandArgs;
 import voidpointer.bukkit.framework.locale.Locale;
 import voidpointer.bukkit.framework.locale.Message;
 
 /** @author VoidPointer aka NyanGuyMF */
-public class OnlyPlayerValidator extends LocalizedValidator<CommandArgs> {
-    public OnlyPlayerValidator(final Locale locale) {
-        this(locale, CommandErrorMessage.ONLY_PLAYER_ALLOWED);
-    }
+@RequiredArgsConstructor
+@Getter(AccessLevel.PROTECTED)
+public abstract class LocalizedValidator<T extends CommandArgs> extends BaseValidator<T> {
+    @NonNull private final Locale locale;
+    @NonNull private final Message errorMessage;
 
-    public OnlyPlayerValidator(final Locale locale, final Message errorMessage) {
-        super(locale, errorMessage);
-    }
-
-    @Override protected boolean areValid0(final Command<CommandArgs> cmd, final CommandArgs args) {
-        return args.isPlayer();
+    @Override protected void onNotValid(final Command<T> cmd, final T args) {
+        /* method may be overrided by sub classes. */
+        locale.getLocalized(errorMessage)
+            .set("command-name", cmd.getDisplayName())
+            .colorize()
+            .send(args.getSender());
     }
 }

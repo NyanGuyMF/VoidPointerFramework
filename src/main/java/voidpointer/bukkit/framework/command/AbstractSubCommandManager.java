@@ -55,6 +55,13 @@ public abstract class AbstractSubCommandManager<T extends CommandArgs> extends A
         /* no longer needed, executing sub command */
         args.getArgs().remove(FIRST_ARG);
 
+        // TODO: code duplicate, we need to create some abstraction for this
+        //      mb some method in existent class or create new class with method
+        //      * no static *
+        for (CommandArgsValidator<T> validator : specifiedSubCommand.getValidators())
+            if (!validator.areValid(specifiedSubCommand, args))
+                return true;
+
         return specifiedSubCommand.execute(args);
     }
 
@@ -62,10 +69,16 @@ public abstract class AbstractSubCommandManager<T extends CommandArgs> extends A
         subCommands.add(subCommand);
     }
 
-    // should I refactor this method as executeSelf(args)?
     /** Called when the sub command is not specified. */
     protected void onSubCommandNotSpecified(final T args) {
         /* sub classes should override this method. */
+
+        /* TODO:
+         *  sub command managers could have default execution process
+         *      when there is no specified sub command, so should we rename
+         *      this method to "executeSelf" or smth or instead leave it
+         *      with sensible name?
+         */
     }
 
     /** Called when specified sub command not found. */
