@@ -16,6 +16,7 @@
  */
 package voidpointer.bukkit.framework.command;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.command.CommandExecutor;
@@ -86,6 +87,8 @@ public interface Command<T extends CommandArgs> extends CommandExecutor, TabComp
      * @see CommandArgsValidator
      */
     void addValidator(CommandArgsValidator<T> validator);
+
+    Collection<CommandArgsValidator<T>> getValidators();
 
     /** @see CommandExecutor */
     boolean execute(T args);

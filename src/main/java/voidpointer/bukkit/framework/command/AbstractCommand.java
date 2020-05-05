@@ -30,13 +30,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /** @author VoidPointer aka NyanGuyMF */
+@Getter
 @RequiredArgsConstructor
 public abstract class AbstractCommand<T extends CommandArgs> implements Command<T> {
-    @Getter
     @NonNull
     private final String name;
 
-    @Getter
     @Setter(AccessLevel.PROTECTED)
     private String permission = null;
 
