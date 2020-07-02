@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 /** @author VoidPointer aka NyanGuyMF */
 @RequiredArgsConstructor
-public final class H2Connection implements DatabaseConnection {
+public final class H2Connection implements DriverConfiguration {
     private static final String DEFAULT_DATABASE_PATH = "h2/database.h2";
     private static final String CONNECTION_URL_FORMAT = "jdbc:h2:%s";
 
@@ -54,5 +54,13 @@ public final class H2Connection implements DatabaseConnection {
             CONNECTION_URL_FORMAT,
             new File(dataFolder, databasePath).getAbsolutePath()
         );
+    }
+
+    @Override public boolean areCredentialsRequired() {
+        return false;
+    }
+
+    @Override public DatabaseCredentials getCredentials() {
+        return null;
     }
 }

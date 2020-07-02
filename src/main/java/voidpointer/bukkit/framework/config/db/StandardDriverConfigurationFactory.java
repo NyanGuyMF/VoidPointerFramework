@@ -26,10 +26,10 @@ import lombok.RequiredArgsConstructor;
 
 /** @author VoidPointer aka NyanGuyMF */
 @RequiredArgsConstructor
-class DatabaseConnectionFactory implements ConnectionFactory {
+class StandardDriverConfigurationFactory implements DriverConfigurationFactory {
     @NonNull private final Plugin plugin;
 
-    @Override public DatabaseConnection getConnection(
+    @Override public DriverConfiguration getConfiguration(
             final String driverName,
             final ConfigurationSection connectionConfig
     ) {
@@ -41,7 +41,7 @@ class DatabaseConnectionFactory implements ConnectionFactory {
         return getCustomConnection(standardDriver, connectionConfig);
     }
 
-    private DatabaseConnection getStandardConnection(
+    private DriverConfiguration getStandardConnection(
             final StandardDriver driver,
             final ConfigurationSection connectionConfig
     ) {
@@ -55,18 +55,19 @@ class DatabaseConnectionFactory implements ConnectionFactory {
             return MysqlConnection.forCredentials(credentials);
 
         default:
-            /**
+            /*
              * Should never happen, change this method to be up to date with
              *      {@link StandardDriver}
              */
-            throw new IllegalStateException("dafaq?");
+            throw new IllegalStateException("dafaq?" /* bad exception message */);
         }
     }
 
-    private DatabaseConnection getCustomConnection(
+    private DriverConfiguration getCustomConnection(
             final DatabaseDriver driver,
             final ConfigurationSection connectionConfiguration
     ) {
+        // TODO
         return null;
     }
 }

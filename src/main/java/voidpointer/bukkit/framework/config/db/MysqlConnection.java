@@ -27,24 +27,25 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @NoArgsConstructor(access=AccessLevel.PRIVATE)
 @RequiredArgsConstructor
-final class MysqlConnection implements DatabaseConnection {
-    private static final String CONNECTION_URL_FORMAT = "jdbc:mysql://%s:%s@%s:%d/%s";
+final class MysqlConnection implements DriverConfiguration {
+    private static final String CONNECTION_URL_FORMAT = "jdbc:mysql://%s:%d/%s";
 
     @Getter
     @NonNull
     private String connectionUrl;
 
-    public static DatabaseConnection forCredentials(final MysqlCredentials credentials) {
+    @NonNull private MysqlCredentials credentials;
+
+    public static DriverConfiguration forCredentials(final MysqlCredentials credentials) {
         return new MysqlConnectionBuilder()
                 .connectionUrl(formatUrl(credentials))
+                .credentials(credentials)
                 .build();
     }
 
     private static String formatUrl(final MysqlCredentials credentials) {
         return String.format(
             CONNECTION_URL_FORMAT,
-            credentials.getUser(),
-            credentials.getPassword(),
             credentials.getHost(),
             credentials.getPort(),
             credentials.getDatabase()
@@ -53,5 +54,13 @@ final class MysqlConnection implements DatabaseConnection {
 
     @Override public DatabaseDriver getDriver() {
         return StandardDriver.MYSQL;
+    }
+
+    @Override public boolean areCredentialsRequired() {
+        return true;
+    }
+
+    @Override public DatabaseCredentials getCredentials() {
+        return credentials;
     }
 }

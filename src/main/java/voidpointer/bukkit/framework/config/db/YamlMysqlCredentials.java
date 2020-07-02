@@ -42,7 +42,7 @@ public final class YamlMysqlCredentials implements MysqlCredentials {
         if (!isCredentialsConfig(config))
             return null;
         return new YamlMysqlCredentialsBuilder()
-                .user(config.getString(USER_PATH))
+                .username(config.getString(USER_PATH))
                 .password(config.getString(PASSWORD_PATH))
                 .database(config.getString(DATABASE_PATH))
                 .host(config.getString(HOST_PATH, DEFAULT_HOST))
@@ -55,7 +55,7 @@ public final class YamlMysqlCredentials implements MysqlCredentials {
                 && config.isSet(DATABASE_PATH);
     }
 
-    @NonNull private final String user;
+    @NonNull private final String username;
     @NonNull private final String password;
     @NonNull private final String database;
     @NonNull private final String host;

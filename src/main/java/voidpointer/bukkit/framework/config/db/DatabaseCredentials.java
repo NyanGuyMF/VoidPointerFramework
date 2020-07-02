@@ -16,9 +16,9 @@
  */
 package voidpointer.bukkit.framework.config.db;
 
-import org.bukkit.configuration.ConfigurationSection;
-
 /** @author VoidPointer aka NyanGuyMF */
-public interface ConnectionFactory {
-    DatabaseConnection getConnection(String driverName, ConfigurationSection connectionConfig);
+public interface DatabaseCredentials {
+    String getUsername();
+
+    String getPassword();
 }

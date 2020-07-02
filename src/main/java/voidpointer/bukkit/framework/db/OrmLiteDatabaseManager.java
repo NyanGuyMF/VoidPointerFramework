@@ -26,7 +26,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import voidpointer.bukkit.framework.config.db.DatabaseConfig;
+import voidpointer.bukkit.framework.config.db.DatabaseCredentials;
+import voidpointer.bukkit.framework.config.db.DriverConfiguration;
 import voidpointer.bukkit.framework.dependency.Dependency;
 import voidpointer.bukkit.framework.dependency.DependencyManager;
 
@@ -34,7 +35,7 @@ import voidpointer.bukkit.framework.dependency.DependencyManager;
 @Getter(AccessLevel.PROTECTED)
 @RequiredArgsConstructor
 public abstract class OrmLiteDatabaseManager implements DatabaseManager {
-    @NonNull private final DatabaseConfig config;
+    @NonNull private final DriverConfiguration driverConfiguration;
     @NonNull private final DependencyManager dependencyManager;
 
     private ConnectionSource connectionSource;
@@ -49,7 +50,7 @@ public abstract class OrmLiteDatabaseManager implements DatabaseManager {
         boolean isConnected = false;
         ConnectionSource connectionSource = null;
         try {
-            connectionSource = new JdbcConnectionSource(config.getConnectionUrl());
+            connectionSource = connectJdbc();
             onConnectionEstablished(connectionSource);
             isConnected = true;
         } catch (SQLException ex) {
@@ -60,10 +61,26 @@ public abstract class OrmLiteDatabaseManager implements DatabaseManager {
         return isConnected;
     }
 
+    private ConnectionSource connectJdbc() throws SQLException {
+        if (driverConfiguration.areCredentialsRequired())
+            return connectUsingCredentials();
+
+        return new JdbcConnectionSource(driverConfiguration.getConnectionUrl());
+    }
+
+    private ConnectionSource connectUsingCredentials() throws SQLException {
+        DatabaseCredentials credentials = driverConfiguration.getCredentials();
+        return new JdbcConnectionSource(
+                driverConfiguration.getConnectionUrl(),
+                credentials.getUsername(),
+                credentials.getPassword()
+        );
+    }
+
     protected abstract void onConnectionEstablished(ConnectionSource connectionSource);
 
     private boolean installConnector() {
-        return installDependency(config.getConnectorDependency());
+        return installDependency(driverConfiguration.getDriver());
     }
 
     private boolean installDependency(final Dependency dependency) {
