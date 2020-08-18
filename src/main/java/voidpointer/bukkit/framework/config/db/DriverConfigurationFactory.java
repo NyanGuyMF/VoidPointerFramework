@@ -16,9 +16,9 @@
  */
 package voidpointer.bukkit.framework.config.db;
 
-/** @author VoidPointer aka NyanGuyMF */
-interface DatabaseConnection {
-    DatabaseDriver getDriver();
+import org.bukkit.configuration.ConfigurationSection;
 
-    String getConnectionUrl();
+/** @author VoidPointer aka NyanGuyMF */
+public interface DriverConfigurationFactory {
+    DriverConfiguration getConfiguration(String driverName, ConfigurationSection dirverSection);
 }

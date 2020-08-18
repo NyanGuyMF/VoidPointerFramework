@@ -24,15 +24,18 @@ import org.bukkit.plugin.Plugin;
 
 import lombok.NonNull;
 import voidpointer.bukkit.framework.config.PluginConfig;
-import voidpointer.bukkit.framework.dependency.Dependency;
 
-/** @author VoidPointer aka NyanGuyMF */
+/**
+ * File based representation of database configuration with simpler interface.
+ *
+ * @author VoidPointer aka NyanGuyMF
+ */
 public final class PluginDatabaseConfig extends PluginConfig implements DatabaseConfig {
     protected static final String DATABASE_CONFIG_FILENAME = "database.yml";
     private static final String DRIVER_PATH = "driver";
     private static final String DEFAULT_DRIVER = "h2";
 
-    @NonNull private DatabaseConnection connection;
+    @NonNull private DriverConfiguration driverConfig;
 
     public PluginDatabaseConfig(final Plugin pluginOwner) {
         this(pluginOwner, DATABASE_CONFIG_FILENAME);
@@ -49,16 +52,17 @@ public final class PluginDatabaseConfig extends PluginConfig implements Database
     @Override protected void onLoad() {
         YamlConfiguration databaseConfig = super.getConfig();
         String driverName = databaseConfig.getString(DRIVER_PATH, DEFAULT_DRIVER);
-        ConfigurationSection connectionConfig;
+        ConfigurationSection driverSection;
         if (databaseConfig.isSet(driverName)) {
-            connectionConfig = databaseConfig.getConfigurationSection(driverName);
+            driverSection = databaseConfig.getConfigurationSection(driverName);
         } else {
             onConnectionConfigNotFound(driverName);
             driverName = DEFAULT_DRIVER;
-            connectionConfig = loadDefaultConnectionConfig(databaseConfig);
+            driverSection = loadDefaultConnectionConfig(databaseConfig);
         }
-        ConnectionFactory connectionFactory = new DatabaseConnectionFactory(getPluginOwner());
-        connection = connectionFactory.getConnection(driverName, connectionConfig);
+        DriverConfigurationFactory driverConfigurationFactory
+                = new StandardDriverConfigurationFactory(getPluginOwner());
+        driverConfig = driverConfigurationFactory.getConfiguration(driverName, driverSection);
     }
 
     @Override protected void onReload() {
@@ -84,15 +88,9 @@ public final class PluginDatabaseConfig extends PluginConfig implements Database
         ));
     }
 
-    @Override public Dependency getConnectorDependency() {
+    @Override public DriverConfiguration getDatabaseDriverConfiguration() {
         if (!isLoaded())
             throw new IllegalStateException("Configuration isn't loaded.");
-        return connection.getDriver();
-    }
-
-    @Override public String getConnectionUrl() {
-        if (!isLoaded())
-            throw new IllegalStateException("Configuration isn't loaded.");
-        return connection.getConnectionUrl();
+        return driverConfig;
     }
 }

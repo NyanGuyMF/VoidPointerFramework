@@ -17,10 +17,12 @@
 package voidpointer.bukkit.framework.config.db;
 
 /** @author VoidPointer aka NyanGuyMF */
-public interface MysqlCredentials extends DatabaseCredentials {
-    String getHost();
+public interface DriverConfiguration {
+    DatabaseDriver getDriver();
 
-    String getDatabase();
+    String getConnectionUrl();
 
-    int getPort();
+    boolean areCredentialsRequired();
+
+    DatabaseCredentials getCredentials();
 }

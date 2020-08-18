@@ -16,11 +16,7 @@
  */
 package voidpointer.bukkit.framework.config.db;
 
-import voidpointer.bukkit.framework.dependency.Dependency;
-
 /** @author VoidPointer aka NyanGuyMF */
 public interface DatabaseConfig {
-    Dependency getConnectorDependency();
-
-    String getConnectionUrl();
+    DriverConfiguration getDatabaseDriverConfiguration();
 }
