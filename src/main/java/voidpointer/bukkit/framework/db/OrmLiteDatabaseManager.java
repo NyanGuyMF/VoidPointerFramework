@@ -86,7 +86,7 @@ public abstract class OrmLiteDatabaseManager implements DatabaseManager {
     private boolean installDependency(final Dependency dependency) {
         if (!dependencyManager.isDependencyInstalled(dependency))
             return dependencyManager.installDependency(dependency).join();
-        return false;
+        return true;
     }
 
     @Override public boolean isConnected() {
