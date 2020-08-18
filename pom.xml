@@ -4,7 +4,7 @@
 
     <groupId>voidpointer.bukkit</groupId>
     <artifactId>framework</artifactId>
-    <version>0.8.2-SNAPSHOT</version>
+    <version>0.8.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>VoidPointerFramework</name>
@@ -46,7 +46,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.20</version>
+            <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -153,6 +153,7 @@
                                     <include>commons-logging</include>
                                     <include>commons-codec</include>
                                     <include>org.slf4j</include>
+                                    <include>com.j256.ormlite</include>
                                 </includes>
                             </artifactSet>
                         </configuration>
